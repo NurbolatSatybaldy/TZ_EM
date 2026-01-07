@@ -8,8 +8,9 @@ services:
       POSTGRES_USER: authuser
       POSTGRES_PASSWORD: authpassword
       POSTGRES_DB: auth_system
+    # Хост-порт меняем на 5433, чтобы не конфликтовать с локальным Postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:

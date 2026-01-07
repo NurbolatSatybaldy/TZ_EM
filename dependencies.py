@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 from database import get_db
 from models import User, Session as SessionModel, AccessRoleRule
@@ -48,7 +48,8 @@ def get_current_user_from_token(
             return None
         
         # Check if session is expired
-        if session.expires_at < datetime.utcnow():
+        now_utc = datetime.now(timezone.utc)
+        if session.expires_at < now_utc:
             db.delete(session)
             db.commit()
             return None
