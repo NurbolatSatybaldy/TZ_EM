@@ -15,7 +15,7 @@ from dependencies import require_admin
 router = APIRouter(prefix="/admin", tags=["Admin - Permission Management"])
 
 
-# ==================== Role Management ====================
+# Role Management 
 
 @router.get("/roles", response_model=List[RoleResponse])
 def get_roles(
@@ -134,7 +134,7 @@ def delete_role(
     return {"message": "Role deleted successfully"}
 
 
-# ==================== Business Element Management ====================
+#  Business Element Management 
 
 @router.get("/elements", response_model=List[BusinessElementResponse])
 def get_business_elements(
@@ -247,7 +247,7 @@ def delete_business_element(
     return {"message": "Business element deleted successfully"}
 
 
-# ==================== Access Rules Management ====================
+# Access Rules Management 
 
 @router.get("/access-rules", response_model=List[AccessRuleResponse])
 def get_access_rules(
@@ -375,7 +375,7 @@ def delete_access_rule(
     return {"message": "Access rule deleted successfully"}
 
 
-# ==================== User Management (Admin) ====================
+# User Management (Admin) 
 
 @router.get("/users", response_model=List[UserResponse])
 def get_all_users(
