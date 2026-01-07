@@ -24,7 +24,7 @@ def seed_database():
             print("Database already seeded. Skipping...")
             return
         
-        # ==================== Create Roles ====================
+        # Create Roles 
         print("\n1. Creating roles...")
         
         admin_role = Role(
@@ -59,7 +59,7 @@ def seed_database():
         print(f"   ✓ Created role: {user_role.name} (ID: {user_role.id})")
         print(f"   ✓ Created role: {guest_role.name} (ID: {guest_role.id})")
         
-        # ==================== Create Business Elements ====================
+        # Create Business Elements 
         print("\n2. Creating business elements (resources)...")
         
         users_element = BusinessElement(
@@ -107,7 +107,7 @@ def seed_database():
         print(f"   ✓ Created element: {orders_element.name} (ID: {orders_element.id})")
         print(f"   ✓ Created element: {permissions_element.name} (ID: {permissions_element.id})")
         
-        # ==================== Create Access Rules ====================
+        # Create Access Rules 
         print("\n3. Creating access rules...")
         
         rules = []
@@ -244,7 +244,7 @@ def seed_database():
         db.add_all(rules)
         db.commit()
         
-        # ==================== Create Test Users ====================
+        # Create Test Users
         print("\n4. Creating test users...")
         
         admin_user = User(
@@ -290,23 +290,23 @@ def seed_database():
         db.add_all([admin_user, manager_user, regular_user, guest_user])
         db.commit()
         
-        print(f"   ✓ Created user: {admin_user.email} (Password: admin123)")
-        print(f"   ✓ Created user: {manager_user.email} (Password: manager123)")
-        print(f"   ✓ Created user: {regular_user.email} (Password: user123)")
-        print(f"   ✓ Created user: {guest_user.email} (Password: guest123)")
+        print(f"   Created user: {admin_user.email} (Password: admin123)")
+        print(f"   Created user: {manager_user.email} (Password: manager123)")
+        print(f"   Created user: {regular_user.email} (Password: user123)")
+        print(f"   Created user: {guest_user.email} (Password: guest123)")
         
         print("\n" + "="*60)
-        print("✅ Database seeding completed successfully!")
+        print(" Database seeding completed successfully!")
         print("="*60)
-        print("\n📋 Test Credentials:")
+        print("\n Test Credentials:")
         print("   Admin:   admin@example.com / admin123")
         print("   Manager: manager@example.com / manager123")
         print("   User:    user@example.com / user123")
         print("   Guest:   guest@example.com / guest123")
-        print("\n🚀 You can now start the application with: uvicorn main:app --reload")
+        print("\n You can now start the application with: uvicorn main:app --reload")
         
     except Exception as e:
-        print(f"\n❌ Error during seeding: {e}")
+        print(f"\nError during seeding: {e}")
         db.rollback()
         raise
     finally:

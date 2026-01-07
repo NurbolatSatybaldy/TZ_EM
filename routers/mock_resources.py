@@ -28,7 +28,7 @@ MOCK_STORES = [
 ]
 
 
-# ==================== Products ====================
+# Products 
 
 @router.get("/products", response_model=List[MockObjectResponse])
 def get_products(
@@ -181,7 +181,7 @@ def delete_product(
     return {"message": "Product deleted successfully"}
 
 
-# ==================== Orders ====================
+# Orders
 
 @router.get("/orders", response_model=List[MockObjectResponse])
 def get_orders(
@@ -231,7 +231,7 @@ def get_order(
     return order
 
 
-# ==================== Stores ====================
+# Stores 
 
 @router.get("/stores", response_model=List[MockObjectResponse])
 def get_stores(
