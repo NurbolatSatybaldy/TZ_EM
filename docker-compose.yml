@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: auth_system_db
+    environment:
+      POSTGRES_USER: authuser
+      POSTGRES_PASSWORD: authpassword
+      POSTGRES_DB: auth_system
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U authuser -d auth_system"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: auth_system_app
+    environment:
+      DATABASE_URL: postgresql://authuser:authpassword@db:5432/auth_system
+      SECRET_KEY: your-super-secret-key-change-this-in-production-min-32-chars
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      SESSION_EXPIRE_DAYS: 7
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "
+        python seed_data.py &&
+        uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+      "
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
+
